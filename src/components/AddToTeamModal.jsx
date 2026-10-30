@@ -5,7 +5,7 @@ export default function AddToTeamModal({ pokemon, onClose }) {
   const { teams, addPokemonToTeam, createTeam } = useApp()
   const [selectedTeamId, setSelectedTeamId] = useState(teams[0]?.id || '')
   const [newTeamName, setNewTeamName] = useState('')
-  const [mode, setMode] = useState('select') // 'select' | 'create'
+  const [mode, setMode] = useState('select')
 
   function handleAdd() {
     if (!selectedTeamId) return
@@ -28,7 +28,6 @@ export default function AddToTeamModal({ pokemon, onClose }) {
           <button className="modal__close" onClick={onClose} id="modal-close-btn">✕</button>
         </div>
 
-        {/* Pokémon preview */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24, padding: '12px 16px', background: '#f8fafc', borderRadius: 12 }}>
           <img src={pokemon.image} alt={pokemon.name} style={{ width: 56, height: 56, objectFit: 'contain' }} />
           <div>
@@ -41,7 +40,6 @@ export default function AddToTeamModal({ pokemon, onClose }) {
           </div>
         </div>
 
-        {/* Mode tabs */}
         <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
           <button
             className={`btn btn--sm ${mode === 'select' ? 'btn--blue' : 'btn--outline'}`}

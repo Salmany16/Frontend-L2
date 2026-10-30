@@ -87,3 +87,4 @@ Een moderne, responsieve webapplicatie gebouwd met **React**, **Vite** en **Reac
    ```
 
 4. Open de browser op: `http://localhost:5173`
+

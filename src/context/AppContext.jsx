@@ -1,13 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 
-// -----------------------------------------------
-// AppContext — global state voor teams & favorieten
-// -----------------------------------------------
-
 const AppContext = createContext(null)
 
 export function AppProvider({ children }) {
-  // --- Favorieten ---
   const [favorites, setFavorites] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('poke-favorites') || '[]')
@@ -16,7 +11,6 @@ export function AppProvider({ children }) {
     }
   })
 
-  // --- Teams ---
   const [teams, setTeams] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('poke-teams') || '[]')
@@ -25,10 +19,8 @@ export function AppProvider({ children }) {
     }
   })
 
-  // --- Toast notifications ---
   const [toasts, setToasts] = useState([])
 
-  // Sync met localStorage wanneer state verandert
   useEffect(() => {
     localStorage.setItem('poke-favorites', JSON.stringify(favorites))
   }, [favorites])
@@ -37,7 +29,6 @@ export function AppProvider({ children }) {
     localStorage.setItem('poke-teams', JSON.stringify(teams))
   }, [teams])
 
-  // --- Favorieten functies ---
   function toggleFavorite(pokemon) {
     setFavorites(prev => {
       const exists = prev.find(p => p.id === pokemon.id)
@@ -55,7 +46,6 @@ export function AppProvider({ children }) {
     return favorites.some(p => p.id === id)
   }
 
-  // --- Teams functies ---
   function createTeam(name) {
     const newTeam = {
       id: Date.now(),
@@ -98,7 +88,6 @@ export function AppProvider({ children }) {
     showToast('Pokémon uit team verwijderd', 'info')
   }
 
-  // --- Toast functies ---
   function showToast(message, type = 'info') {
     const id = Date.now()
     setToasts(prev => [...prev, { id, message, type }])

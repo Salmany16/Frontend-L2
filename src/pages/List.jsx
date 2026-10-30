@@ -6,8 +6,8 @@ const PAGE_SIZE = 9
 const ALL_TYPES = ['Alle', 'grass', 'fire', 'water', 'electric', 'normal', 'psychic', 'ice', 'dragon', 'dark', 'fairy', 'fighting', 'poison', 'ground', 'flying', 'bug', 'rock', 'ghost', 'steel']
 
 export default function List() {
-  const [allPokemon, setAllPokemon] = useState([])       // alle namen+urls
-  const [displayed, setDisplayed] = useState([])          // huidige pagina (met detail data)
+  const [allPokemon, setAllPokemon] = useState([])
+  const [displayed, setDisplayed] = useState([])
   const [loading, setLoading] = useState(true)
   const [detailLoading, setDetailLoading] = useState(false)
   const [search, setSearch] = useState('')
@@ -16,7 +16,6 @@ export default function List() {
   const [filtered, setFiltered] = useState([])
   const [addModal, setAddModal] = useState(null)
 
-  // Stap 1: Haal alle Pokémon namen op (limit 151 = Kanto)
   useEffect(() => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=151&offset=0')
       .then(r => r.json())
@@ -26,7 +25,6 @@ export default function List() {
       .catch(err => console.error('Fout bij ophalen lijst:', err))
   }, [])
 
-  // Stap 2: Filter op zoekterm (naam)
   useEffect(() => {
     const q = search.trim().toLowerCase()
     const result = allPokemon.filter(p => p.name.includes(q))
@@ -34,7 +32,6 @@ export default function List() {
     setPage(1)
   }, [search, allPokemon])
 
-  // Stap 3: Haal detail-data op voor de huidige pagina
   const fetchPageDetails = useCallback(async (pokemonList, currentPage) => {
     setDetailLoading(true)
     const start = (currentPage - 1) * PAGE_SIZE
@@ -52,7 +49,6 @@ export default function List() {
         types: p.types.map(t => t.type.name),
       }))
 
-      // Filter op type (client-side na ophalen details)
       if (activeType !== 'Alle') {
         result = result.filter(p => p.types.includes(activeType))
       }
@@ -73,7 +69,6 @@ export default function List() {
     }
   }, [filtered, page, fetchPageDetails, allPokemon, search])
 
-  // Type filter: reset naar pagina 1
   function handleTypeFilter(type) {
     setActiveType(type)
     setPage(1)
@@ -139,7 +134,6 @@ export default function List() {
   return (
     <main className="main-content">
       <div className="container" style={{ paddingTop: 32 }}>
-        {/* Page header */}
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 24 }}>
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em' }}>Pokémon</h1>
@@ -148,7 +142,6 @@ export default function List() {
             </p>
           </div>
 
-          {/* Search */}
           <div className="search-input-wrapper" style={{ maxWidth: 320 }}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
@@ -165,7 +158,6 @@ export default function List() {
           </div>
         </div>
 
-        {/* Type filters */}
         <div className="type-filters" role="group" aria-label="Filter op type">
           {ALL_TYPES.map(type => (
             <button
@@ -180,7 +172,6 @@ export default function List() {
           ))}
         </div>
 
-        {/* Grid */}
         {loading || detailLoading ? (
           <div className="loading-wrapper">
             <div className="pokeball-spinner" />
@@ -204,10 +195,8 @@ export default function List() {
           </div>
         )}
 
-        {/* Pagination */}
         {!loading && totalPages > 1 && renderPagination()}
 
-        {/* Status bar */}
         <div className="status-bar" style={{ marginTop: 32 }}>
           <div className="status-bar__left">
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

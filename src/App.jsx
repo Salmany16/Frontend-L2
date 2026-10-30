@@ -13,10 +13,8 @@ export default function App() {
   return (
     <AppProvider>
       <div className="page-wrapper">
-        {/* Altijd zichtbare navigatiebalk */}
         <Navigation />
 
-        {/* Pagina-routing */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/list" element={<List />} />
@@ -24,7 +22,6 @@ export default function App() {
           <Route path="/list/:name" element={<Detail />} />
           <Route path="/teams" element={<Teams />} />
           <Route path="/favorites" element={<Favorites />} />
-          {/* 404 fallback */}
           <Route path="*" element={
             <main className="main-content">
               <div className="container" style={{ textAlign: 'center', paddingTop: 80 }}>
@@ -39,10 +36,7 @@ export default function App() {
           } />
         </Routes>
 
-        {/* Footer */}
         <Footer />
-
-        {/* Toast notificaties */}
         <ToastContainer />
       </div>
     </AppProvider>

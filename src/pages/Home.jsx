@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import PokemonCard from '../components/PokemonCard'
 import AddToTeamModal from '../components/AddToTeamModal'
 
-// Populaire / bekende pokemon IDs
 const POPULAR_IDS = [25, 1, 4, 7, 6, 150, 133, 39]
 
 const FUN_FACTS = [
@@ -46,7 +45,6 @@ export default function Home() {
     fetchPopular()
   }, [])
 
-  // Wissel fun fact elke 5 seconden
   useEffect(() => {
     const interval = setInterval(() => {
       setFactIndex(i => (i + 1) % FUN_FACTS.length)
@@ -57,7 +55,6 @@ export default function Home() {
   return (
     <main className="main-content">
       <div className="container">
-        {/* ── Hero Banner ── */}
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero__content">
             <div className="hero__badge">⚡ AVONTUUR WACHT</div>
@@ -83,7 +80,6 @@ export default function Home() {
           )}
         </section>
 
-        {/* ── Populaire Pokémon ── */}
         <section aria-labelledby="popular-title">
           <div className="section-header">
             <h2 className="section-title" id="popular-title">Populaire Pokémon</h2>
@@ -110,7 +106,6 @@ export default function Home() {
           )}
         </section>
 
-        {/* ── Fun Fact Card ── */}
         <div className="fact-card" role="note" aria-live="polite">
           <div className="fact-card__icon" />
           <div className="fact-card__content">
@@ -120,7 +115,6 @@ export default function Home() {
           <span className="fact-card__arrow">›</span>
         </div>
 
-        {/* ── Snelkoppelingen ── */}
         <section style={{ marginTop: 40 }}>
           <div className="section-header">
             <h2 className="section-title" id="quick-links-title">Snel navigeren</h2>
@@ -160,7 +154,6 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Add to team modal */}
       {addModal && (
         <AddToTeamModal pokemon={addModal} onClose={() => setAddModal(null)} />
       )}

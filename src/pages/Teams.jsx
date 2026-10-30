@@ -17,7 +17,6 @@ export default function Teams() {
   return (
     <main className="main-content">
       <div className="container teams-page">
-        {/* Header */}
         <div className="teams-page__header">
           <div>
             <h1 className="page-title">⚔️ Mijn Teams</h1>
@@ -32,7 +31,6 @@ export default function Teams() {
           </button>
         </div>
 
-        {/* Geen teams */}
         {teams.length === 0 ? (
           <div className="empty-state">
             <div className="empty-state__icon">🎮</div>
@@ -58,7 +56,6 @@ export default function Teams() {
         )}
       </div>
 
-      {/* Create team modal */}
       {showCreate && (
         <div className="modal-overlay" onClick={() => setShowCreate(false)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
@@ -105,7 +102,6 @@ export default function Teams() {
   )
 }
 
-// ── TeamCard sub-component ──────────────────────────────────
 function TeamCard({ team, onDelete, onRemoveMember }) {
   const [confirmDelete, setConfirmDelete] = useState(false)
 
@@ -116,7 +112,6 @@ function TeamCard({ team, onDelete, onRemoveMember }) {
         <span className="team-card__count">{team.members.length}/6</span>
       </div>
 
-      {/* Pokémon leden */}
       <div className="team-card__pokemon-list">
         {team.members.length === 0 ? (
           <div className="team-card__empty">
@@ -144,7 +139,6 @@ function TeamCard({ team, onDelete, onRemoveMember }) {
         )}
       </div>
 
-      {/* Acties */}
       <div className="team-card__actions">
         <Link
           to="/list"

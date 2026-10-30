@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useApp } from '../context/AppContext'
 import AddToTeamModal from '../components/AddToTeamModal'
 
@@ -27,8 +27,7 @@ function padId(id) {
 
 export default function Detail() {
   const { name } = useParams()
-  const navigate = useNavigate()
-  const { toggleFavorite, isFavorite, addPokemonToTeam, teams } = useApp()
+  const { toggleFavorite, isFavorite } = useApp()
 
   const [pokemon, setPokemon] = useState(null)
   const [species, setSpecies] = useState(null)
@@ -46,17 +45,14 @@ export default function Detail() {
 
     async function fetchAll() {
       try {
-        // 1. Basis Pokémon data
         const pokeRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
         const pokeData = await pokeRes.json()
         setPokemon(pokeData)
 
-        // 2. Species (voor beschrijving + evolutie URL)
         const specRes = await fetch(pokeData.species.url)
         const specData = await specRes.json()
         setSpecies(specData)
 
-        // 3. Evolutieketen
         const evoRes = await fetch(specData.evolution_chain.url)
         const evoData = await evoRes.json()
         const chain = flattenChain(evoData.chain)
@@ -131,7 +127,6 @@ export default function Detail() {
   return (
     <main className="main-content">
       <div className="container detail-page">
-        {/* Top bar */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
           <Link
             to="/list"
@@ -171,16 +166,13 @@ export default function Detail() {
           </div>
         </div>
 
-        {/* Main grid */}
         <div className="detail-grid">
-          {/* LEFT: Pokémon card */}
           <div className="detail-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <span className="detail-card__number">{padId(pokemon.id)}</span>
               <span className="detail-card__gen-badge">{getGeneration()}</span>
             </div>
 
-            {/* Image */}
             <div
               className="detail-card__image-wrapper"
               style={{ background: `linear-gradient(135deg, var(--type-${primaryType}-bg, #f8fafc), white)` }}
@@ -202,12 +194,10 @@ export default function Detail() {
               ))}
             </div>
 
-            {/* Beschrijving */}
             {getDescription() && (
               <p className="detail-card__description">{getDescription()}</p>
             )}
 
-            {/* Hoogte & Gewicht */}
             <div className="detail-card__stats-grid">
               <div className="detail-card__stat">
                 <span className="detail-card__stat-icon">📏</span>
@@ -226,9 +216,7 @@ export default function Detail() {
             </div>
           </div>
 
-          {/* RIGHT: Stats + Evolution + Add to team */}
           <div className="detail-right">
-            {/* Basis stats */}
             <div className="detail-panel">
               <div className="detail-panel__header">
                 <h2 className="detail-panel__title">📊 Basis stats</h2>
@@ -263,7 +251,6 @@ export default function Detail() {
               </div>
             </div>
 
-            {/* Evolutieketen */}
             {evolution.length > 1 && (
               <div className="detail-panel">
                 <h2 className="detail-panel__title" style={{ marginBottom: 20 }}>🔄 Evolutie</h2>
@@ -300,7 +287,6 @@ export default function Detail() {
               </div>
             )}
 
-            {/* Abilities */}
             <div className="detail-panel">
               <h2 className="detail-panel__title" style={{ marginBottom: 16 }}>⚡ Vaardigheden</h2>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -323,7 +309,6 @@ export default function Detail() {
               </div>
             </div>
 
-            {/* Voeg toe aan team */}
             <button
               className="btn btn--blue btn--full"
               onClick={() => setAddModal(true)}

@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useApp } from '../context/AppContext'
 
-// Type kleuren voor de achtergrond van de kaart
 const TYPE_GRADIENTS = {
   grass: 'linear-gradient(135deg, #f0fdf4, #dcfce7)',
   fire: 'linear-gradient(135deg, #fff7ed, #ffedd5)',
@@ -47,7 +46,6 @@ export default function PokemonCard({ id, name, image, types = [], onAddToTeam }
 
   return (
     <Link to={`/pokemon/${name}`} className="pokemon-card" id={`card-${name}`}>
-      {/* Header: nummer + favoriet knop */}
       <div className="pokemon-card__header">
         <span className="pokemon-card__number">{padId(id)}</span>
         <button
@@ -60,7 +58,6 @@ export default function PokemonCard({ id, name, image, types = [], onAddToTeam }
         </button>
       </div>
 
-      {/* Pokémon afbeelding */}
       <div className="pokemon-card__image-wrapper" style={{ background: gradient }}>
         <img
           src={image}
@@ -70,10 +67,8 @@ export default function PokemonCard({ id, name, image, types = [], onAddToTeam }
         />
       </div>
 
-      {/* Naam */}
       <p className="pokemon-card__name">{name}</p>
 
-      {/* Type badges */}
       <div className="pokemon-card__types">
         {types.map(type => (
           <span key={type} className={`type-badge type-badge--${type}`}>
@@ -82,7 +77,6 @@ export default function PokemonCard({ id, name, image, types = [], onAddToTeam }
         ))}
       </div>
 
-      {/* Voeg toe aan team (optioneel) */}
       {onAddToTeam && (
         <button
           className="btn btn--outline btn--sm"

@@ -4,13 +4,11 @@ export default function Navigation() {
   return (
     <nav className="navbar">
       <div className="container navbar__inner">
-        {/* Logo */}
         <NavLink to="/" className="navbar__logo">
           <div className="navbar__logo-icon">⚡</div>
           <span>Pokédex</span>
         </NavLink>
 
-        {/* Nav links */}
         <div className="navbar__nav">
           <NavLink
             to="/"
@@ -61,7 +59,6 @@ export default function Navigation() {
           </NavLink>
         </div>
 
-        {/* User icon */}
         <div className="navbar__actions">
           <button className="navbar__user-btn" id="btn-user-profile" aria-label="Gebruikersprofiel">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

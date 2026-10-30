@@ -7,12 +7,11 @@ import AddToTeamModal from '../components/AddToTeamModal'
 const ALL_TYPES = ['Alle', 'grass', 'fire', 'water', 'electric', 'normal', 'psychic', 'ice', 'dragon', 'dark', 'fairy', 'fighting', 'poison', 'ground', 'flying', 'bug', 'rock', 'ghost', 'steel']
 
 export default function Favorites() {
-  const { favorites, toggleFavorite } = useApp()
+  const { favorites } = useApp()
   const [search, setSearch] = useState('')
   const [activeType, setActiveType] = useState('Alle')
   const [addModal, setAddModal] = useState(null)
 
-  // Filter op zoekterm + type
   const filtered = favorites.filter(p => {
     const matchSearch = p.name.toLowerCase().includes(search.trim().toLowerCase())
     const matchType = activeType === 'Alle' || p.types.includes(activeType)
@@ -22,7 +21,6 @@ export default function Favorites() {
   return (
     <main className="main-content">
       <div className="container favorites-page">
-        {/* Header */}
         <div className="favorites-header">
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 8 }}>
             <div>
@@ -35,7 +33,6 @@ export default function Favorites() {
             </div>
           </div>
 
-          {/* Search (alleen als er favorieten zijn) */}
           {favorites.length > 0 && (
             <>
               <div className="search-filter-bar" style={{ marginTop: 16 }}>
@@ -72,7 +69,6 @@ export default function Favorites() {
           )}
         </div>
 
-        {/* Leeg */}
         {favorites.length === 0 ? (
           <div className="empty-state">
             <div className="empty-state__icon">💔</div>
@@ -102,7 +98,6 @@ export default function Favorites() {
           </div>
         )}
 
-        {/* Tip onderaan */}
         {favorites.length > 0 && (
           <div style={{
             marginTop: 32,
